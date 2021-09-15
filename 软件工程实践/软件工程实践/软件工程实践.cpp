@@ -13,17 +13,17 @@ int main()
 	infile2.open(orgs);
 	infile2.imbue(china);//读入的是中文
 	wstring a;
-	int line = 0, total = 0; // ne是储存第几行, total是敏感词个数
-	ofstream outfile;//普通的文件输出
+	int line = 0, total = 0; //line是储存第几行, total是敏感词个数
+		ofstream outfile;//普通的文件输出
 	outfile.open(answer);
 	wofstream woutfile;//用来输出wstring
 	woutfile.open(answer);
 	woutfile.imbue(china);//输出中文
-	woutfile << "                            " << endl;//在输出文件的第一行输出一堆空格，=
+	woutfile << "Total:  " << endl;//准备用于被覆盖
 	while (getline(infile2, a))//用来读入一行待检测文件
 	{
 		line++;
-		for (int i = 0; i < a.size(); i++) {
+		for (unsigned int i = 0; i < a.size(); i++) {
 			wifstream infile1;
 			infile1.open(words);//用来打开敏感词
 			infile1.imbue(china);//设置中国本地
@@ -32,7 +32,7 @@ int main()
 			{
 				if ((a[i] >= 'a' && a[i] <= 'z') || (a[i] >= 'A' && a[i] <= 'Z'))//如果是英文；
 				{
-					int	k = 0, len = 0, count;
+					unsigned int	k = 0, len = 0, count;
 					while (k < b.size() && i + len < a.size())
 					{
 						if (b[k] == a[i + len] || b[k] == a[i + len] + 32 || b[k] == a[i + len] - 32)//英文字母不区分大小写相等 
@@ -51,7 +51,7 @@ int main()
 						woutfile << "Line" << line << ": <";
 						woutfile << b;
 						woutfile << "> ";//输出："Line x:<敏感词>”
-						for (int k = i; k < i + len; k++)
+						for (unsigned int k = i; k < i + len; k++)
 						{//输出待检测文档的敏感词
 							woutfile << a[k];
 						}
@@ -59,7 +59,7 @@ int main()
 					}
 				}
 				else {
-					int	k = 0, len = 0, count = 0;
+					unsigned int	k = 0, len = 0, count = 0;
 					while (k < b.size() && i + len < a.size())
 					{
 						if (b[k] == a[i + len])
@@ -77,7 +77,7 @@ int main()
 						woutfile << "Line" << line << ": <";
 						woutfile << b;
 						woutfile << "> ";//输出："Line x:<敏感词>”
-						for (int k = i; k < i + len; k++)
+						for (unsigned int k = i; k < i + len; k++)
 						{//输出待检测文档的敏感词
 							woutfile << a[k];
 						}
@@ -92,6 +92,4 @@ int main()
 	woutfile.close();//关闭文件
 	return 0;
 }
-/*
-d:words.txt d:org.txt d:answer.txt
-*/
+/*d:words.txt d:org.txt d:answer.txt*/
