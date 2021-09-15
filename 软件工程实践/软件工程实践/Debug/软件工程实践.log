@@ -1,0 +1,7 @@
+﻿  软件工程实践.cpp
+C:\Users\86150\Desktop\软件工程实践\软件工程实践\软件工程实践.cpp(26,21): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\86150\Desktop\软件工程实践\软件工程实践\软件工程实践.cpp(36,15): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\86150\Desktop\软件工程实践\软件工程实践\软件工程实践.cpp(36,37): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\86150\Desktop\软件工程实践\软件工程实践\软件工程实践.cpp(63,15): warning C4018: “<”: 有符号/无符号不匹配
+C:\Users\86150\Desktop\软件工程实践\软件工程实践\软件工程实践.cpp(63,37): warning C4018: “<”: 有符号/无符号不匹配
+  软件工程实践.vcxproj -> C:\Users\86150\Desktop\软件工程实践\Debug\软件工程实践.exe
