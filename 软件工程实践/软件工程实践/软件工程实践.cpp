@@ -3,9 +3,9 @@
 #include<string>
 #include<fstream>
 using namespace std;
-struct MGC  
+struct MGC
 {
-	int line=0; //存敏感词所在的行；
+	int line = 0; //存敏感词所在的行；
 	wstring b, m;  //存目标敏感词，和找到的词；
 }find[10005];
 int main()
@@ -99,4 +99,4 @@ int main()
 	return 0;
 }
 
-/*d:words.txt d:org.txt d:answer.txt*/
+/*d:words.txt d:org.txt d:ans.txt*/
