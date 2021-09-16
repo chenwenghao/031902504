@@ -3,23 +3,25 @@
 #include<string>
 #include<fstream>
 using namespace std;
+struct MGC  
+{
+	int line=0; //存敏感词所在的行；
+	wstring b, m;  //存目标敏感词，和找到的词；
+}find[10005];
 int main()
 {
-
+	struct MGC find[10005];
 	locale china("zh_CN.UTF-8");//设置本地是中国，这样才能在文件中都入读出中文，而不乱码
 	string words, orgs, answer;
-	cin >> words; cin >> orgs; cin >> answer;
+	cin >> words; cin >> orgs; cin >> answer;//按序输入三个地址；
 	wifstream infile2;
 	infile2.open(orgs);
 	infile2.imbue(china);//读入的是中文
 	wstring a;
-	int line = 0, total = 0; //line是储存第几行, total是敏感词个数
-		ofstream outfile;//普通的文件输出
-	outfile.open(answer);
+	unsigned int line = 0, total = 0; //line是储存第几行, total是敏感词个数
 	wofstream woutfile;//用来输出wstring
 	woutfile.open(answer);
 	woutfile.imbue(china);//输出中文
-	woutfile << "Total:  " << endl;//准备用于被覆盖
 	while (getline(infile2, a))//用来读入一行待检测文件
 	{
 		line++;
@@ -47,15 +49,14 @@ int main()
 						}
 					}
 					if (k == b.size()) {
-						total++;//检测到的敏感词+1
-						woutfile << "Line" << line << ": <";
-						woutfile << b;
-						woutfile << "> ";//输出："Line x:<敏感词>”
+						find[total].line = line;
+						find[total].b = b;
 						for (unsigned int k = i; k < i + len; k++)
 						{//输出待检测文档的敏感词
-							woutfile << a[k];
+							if (k == 0)find[total].m = a[k];
+							else find[total].m += a[k];
 						}
-						woutfile << endl;
+						total++;//检测到的敏感词+1
 					}
 				}
 				else {
@@ -73,23 +74,29 @@ int main()
 						if (count > 20) break;
 					}
 					if (k == b.size()) {
-						total++;//检测到的敏感词+1
-						woutfile << "Line" << line << ": <";
-						woutfile << b;
-						woutfile << "> ";//输出："Line x:<敏感词>”
+						find[total].line = line;
+						find[total].b = b;
 						for (unsigned int k = i; k < i + len; k++)
 						{//输出待检测文档的敏感词
-							woutfile << a[k];
+							if (k == 0)find[total].m = a[k];
+							else find[total].m += a[k];
 						}
-						woutfile << endl;
+						total++;//检测到的敏感词+1
 					}
 				}
 			}
 		}
 	}
-	outfile << "Total:" << total;//输出检测出来的敏感词总数，会覆盖掉文件前面的空格
-	outfile.close();//关闭文件
+	woutfile << "Total:" << total << endl;//输出检测出来的敏感词总数，会覆盖掉文件前面的空格
+	for (unsigned int i = 0; i < total; i++) {
+		woutfile << "Line" << find[i].line << ": <";
+		woutfile << find[i].b;
+		woutfile << "> ";//输出："Line x:<敏感词>”
+		woutfile << find[i].m;
+		woutfile << endl;
+	}
 	woutfile.close();//关闭文件
 	return 0;
 }
+
 /*d:words.txt d:org.txt d:answer.txt*/
